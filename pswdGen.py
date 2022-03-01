@@ -1,24 +1,36 @@
 import random
 
-lowerLetters = 'abcdefghijklmnopqrstuvwxyz'
-upperLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-numbers = '0123456789'
+class PasswordGenerator:
 
-options = ['444', '372', '327', '183', '237', '336', '552'] #possible formatatios (4 numbers, 4 lower letters and 4 upper letters)
+    def __init__(self):
 
-phrase = ''
-password = ''
+        self.letters = 'abcdefghijklmnopqrstuvwxyz'
+        self.numbers = '0123456789'
+        self.phrase = ''
+        self.password = ''
+    
+    def formatation(self):
+        self.passwordFormat = ['444', '372', '327', '183', '237', '336', '552']
+        self.formatType = random.choice(self.passwordFormat)
+        return self.formatType
+    
+    def createPassword(self):
+        self.formatPassword = self.formatation()
 
-formatType = random.choice(options)
+        for number in range(int(self.formatPassword[0])):
+            self.phrase += random.choice(self.numbers)
+        for lower in range(int(self.formatPassword[1])):
+            self.phrase += random.choice(self.letters)
+        for upper in range(int(self.formatPassword[2])):
+            self.phrase += random.choice(self.letters).upper()
 
-for number in range(int(formatType[0])):
-    phrase += random.choice(numbers)
-for lower in range(int(formatType[1])):
-    phrase += random.choice(lowerLetters)
-for upper in range(int(formatType[2])):
-    phrase += random.choice(upperLetters)
+        self.union = random.sample(self.phrase, len(self.phrase))
+        for i in self.union: self.password += i
+        return self.password
 
-union = random.sample(phrase, len(phrase)) #shuffle the phrase
-for i in union: password += i
+    def ShowPassword(self):
+        self.shufledPassword = self.createPassword()
+        return f'Password: {self.shufledPassword}'
 
-print(f'Your random password is: {password}')
+p1 = PasswordGenerator()
+print(p1.ShowPassword())
